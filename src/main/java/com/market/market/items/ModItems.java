@@ -1,10 +1,10 @@
-package com.market.market;
+package com.market.market.items;
 
+import com.market.market.Market;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -14,14 +14,14 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Items {
+public class ModItems {
     public static final Logger LOGGER = LoggerFactory.getLogger("market");
 
     public static final RegistryKey<ItemGroup> MARKET_COMPONENTS_KEY = RegistryKey.of(
             Registries.ITEM_GROUP.getKey(), Identifier.of(Market.MOD_ID, "market_components"));
 
     public static final ItemGroup MARKET_COMPONENTS = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(Items.END_ENERGY_CRYSTAL))
+            .icon(() -> new ItemStack(ModItems.END_ENERGY_CRYSTAL))
             .displayName(Text.translatable("market_components"))
             .build();
 
@@ -61,10 +61,10 @@ public class Items {
         Registry.register(Registries.ITEM_GROUP, MARKET_COMPONENTS_KEY, MARKET_COMPONENTS);
         ItemGroupEvents.modifyEntriesEvent(MARKET_COMPONENTS_KEY)
                 .register((itemGroup) -> {
-                    itemGroup.add(Items.END_ENERGY_FRAGMENT);
-                    itemGroup.add(Items.END_ENERGY_SHARD);
-                    itemGroup.add(Items.END_ENERGY_CRYSTAL);
-                    itemGroup.add(Items.COMPACTED_END_ENERGY);
+                    itemGroup.add(ModItems.END_ENERGY_FRAGMENT);
+                    itemGroup.add(ModItems.END_ENERGY_SHARD);
+                    itemGroup.add(ModItems.END_ENERGY_CRYSTAL);
+                    itemGroup.add(ModItems.COMPACTED_END_ENERGY);
                 });
 
 

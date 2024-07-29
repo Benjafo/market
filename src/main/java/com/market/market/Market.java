@@ -1,9 +1,8 @@
 package com.market.market;
 
+import com.market.market.blocks.Blocks;
+import com.market.market.items.ModItems;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.minecraft.loot.LootTable;
-import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +23,7 @@ public class Market implements ModInitializer {
 		LOGGER.info("Loading Market mod...");
 
 		// Initialize items and blocks
-		Items.initialize();
+		ModItems.initialize();
 		Blocks.initialize();
 	}
 }

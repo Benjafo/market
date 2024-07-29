@@ -1,5 +1,7 @@
-package com.market.market;
+package com.market.market.blocks;
 
+import com.market.market.items.ModItems;
+import com.market.market.Market;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -24,6 +26,18 @@ public class Blocks {
             true
     );
 
+    public static final Block DIMENSIONAL_RIFT_GENERATOR = register(
+            new MarketBlock(AbstractBlock.Settings.create()),
+            "dimensional_rift_generator",
+            true
+    );
+
+    public static final Block TEMPORAL_ACCELERATOR = register(
+            new MarketBlock(AbstractBlock.Settings.create()),
+            "temporal_accelerator",
+            true
+    );
+
     public static Block register(Block block, String name, boolean shouldRegisterItem) {
         // Register the block and its item.
         Identifier id = Identifier.of(Market.MOD_ID, name);
@@ -43,8 +57,10 @@ public class Blocks {
         LOGGER.info("Registering blocks...");
 
         // Add items to item groups to show in creative GUI
-        ItemGroupEvents.modifyEntriesEvent(Items.MARKET_COMPONENTS_KEY).register(
-                (itemGroup -> itemGroup.add(Blocks.MARKET_BLOCK.asItem()))
-        );
+        ItemGroupEvents.modifyEntriesEvent(ModItems.MARKET_COMPONENTS_KEY).register((itemGroup -> {
+            itemGroup.add(Blocks.MARKET_BLOCK.asItem());
+            itemGroup.add(Blocks.DIMENSIONAL_RIFT_GENERATOR.asItem());
+            itemGroup.add(Blocks.TEMPORAL_ACCELERATOR.asItem());
+        }));
     }
 }

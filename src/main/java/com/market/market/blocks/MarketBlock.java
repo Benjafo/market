@@ -1,5 +1,7 @@
-package com.market.market;
+package com.market.market.blocks;
 
+import com.market.market.items.ItemAppraiser;
+import com.market.market.items.ModItems;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -24,7 +26,7 @@ public class MarketBlock extends Block {
 
         // Generate the value of the item
         Integer value = ItemAppraiser.calculateValue(heldItem);
-        ItemStack coinStack = new ItemStack(Items.END_ENERGY_FRAGMENT, value);
+        ItemStack coinStack = new ItemStack(ModItems.END_ENERGY_FRAGMENT, value);
 
         // Try to insert the coins into the player's inventory
         if (!player.getInventory().insertStack(coinStack)) {
@@ -52,7 +54,8 @@ public class MarketBlock extends Block {
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
         if (world.isClient) {
-            return ActionResult.SUCCESS; // On client side, just return success
+            // On client side, just return success
+            return ActionResult.SUCCESS;
         }
 
         // Check if the player is holding an item
