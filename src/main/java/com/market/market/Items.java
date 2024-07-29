@@ -35,6 +35,11 @@ public class Items {
             "end_energy_crystal"
     );
 
+    public static final Item COMPACTED_END_ENERGY = register(
+            new Item(new Item.Settings()),
+            "compacted_end_energy"
+    );
+
     public static Item register(Item item, String id) {
         // Create the identifier for the item.
         Identifier itemID = Identifier.of(Market.MOD_ID, id);
@@ -45,7 +50,7 @@ public class Items {
 
     // Method to statically initialize class
     public static void initialize() {
-        LOGGER.info("Registering Items");
+        LOGGER.info("Registering items...");
 
         // Add items to item groups to show in creative GUI
         Registry.register(Registries.ITEM_GROUP, MARKET_COMPONENTS_KEY, MARKET_COMPONENTS);
@@ -53,6 +58,7 @@ public class Items {
                 .register((itemGroup) -> {
                     itemGroup.add(Items.END_ENERGY_SHARD);
                     itemGroup.add(Items.END_ENERGY_CRYSTAL);
+                    itemGroup.add(Items.COMPACTED_END_ENERGY);
                 });
 
 

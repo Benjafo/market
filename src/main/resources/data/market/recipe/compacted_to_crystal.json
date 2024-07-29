@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "market:compacted_end_energy"
+    }
+  ],
+  "result": {
+    "id": "market:end_energy_crystal",
+    "count": 4
+  },
+  "group": "market_components"
+}

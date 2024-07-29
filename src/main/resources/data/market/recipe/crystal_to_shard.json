@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "market:end_energy_crystal"
+    }
+  ],
+  "result": {
+    "id": "market:end_energy_shard",
+    "count": 9
+  },
+  "group": "market_components"
+}

@@ -18,6 +18,7 @@ public class Blocks {
     public static final Block MARKET_BLOCK = register(
             new MarketBlock(AbstractBlock.Settings.create()
                     .sounds(BlockSoundGroup.ANVIL)
+                    .strength(3.0f, 3.0f)
             ),
             "market_block",
             true
@@ -39,7 +40,7 @@ public class Blocks {
 
     // Method to statically initialize class
     public static void initialize() {
-        LOGGER.info("Registering Blocks");
+        LOGGER.info("Registering blocks...");
 
         // Add items to item groups to show in creative GUI
         ItemGroupEvents.modifyEntriesEvent(Items.MARKET_COMPONENTS_KEY).register(
