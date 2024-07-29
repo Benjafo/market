@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "market:end_energy_shard"
+    }
+  },
+  "result": {
+    "id": "market:end_energy_crystal",
+    "count": 1
+  },
+  "group": "market_components"
+}
