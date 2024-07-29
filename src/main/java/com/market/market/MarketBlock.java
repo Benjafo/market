@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
@@ -15,15 +16,15 @@ public class MarketBlock extends Block {
         super(settings);
     }
 
-    private ActionResult exchangeItem(ItemStack heldItem, PlayerEntity player) {
+    private boolean exchangeItem(ItemStack heldItem, PlayerEntity player) {
         // Ensure item is eligible to sell
         if (ItemAppraiser.itemIsUnsellable(heldItem)) {
-            return ActionResult.PASS;
+            return false;
         }
 
         // Generate the value of the item
         Integer value = ItemAppraiser.calculateValue(heldItem);
-        ItemStack coinStack = new ItemStack(Items.END_ENERGY_SHARD, value);
+        ItemStack coinStack = new ItemStack(Items.END_ENERGY_FRAGMENT, value);
 
         // Try to insert the coins into the player's inventory
         if (!player.getInventory().insertStack(coinStack)) {
@@ -40,20 +41,29 @@ public class MarketBlock extends Block {
         // Remove exchanged item from player's inventory
         heldItem.decrement(1);
 
-        return ActionResult.SUCCESS;
+        // Display message to player
+        Text message = Text.translatable("market.exchange_message", heldItem.getName(), value,
+                Text.translatable(value == 1 ? "market.exchange_message.singular" : "market.exchange_message.plural"));
+        player.sendMessage(message);
+
+        return true;
     }
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, BlockHitResult hit) {
+        if (world.isClient) {
+            return ActionResult.SUCCESS; // On client side, just return success
+        }
+
         // Check if the player is holding an item
         ItemStack heldItem = player.getMainHandStack();
 
         if (!heldItem.isEmpty()) {
             // Exchange item and update inventory
-            exchangeItem(heldItem, player);
+            boolean exchangeSuccessful = exchangeItem(heldItem, player);
 
-            // Return success
-            return ActionResult.SUCCESS;
+            // Return success only if the exchange was successful
+            return exchangeSuccessful ? ActionResult.SUCCESS : ActionResult.PASS;
         }
 
         return ActionResult.PASS;

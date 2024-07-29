@@ -1,0 +1,11 @@
+{
+  "market.exchange_message": "Exchanged %s for %d %s.",
+  "market.exchange_message.singular": "end energy shard",
+  "market.exchange_message.plural": "end energy shards",
+  "itemGroup.market.market_components": "Market Components",
+  "block.market.market_block": "Market Block",
+  "item.market.end_energy_fragment": "End Energy Fragment",
+  "item.market.end_energy_shard": "End Energy Shard",
+  "item.market.end_energy_crystal": "End Energy Crystal",
+  "item.market.compacted_end_energy": "Compacted End Energy"
+}

@@ -14,8 +14,10 @@ public class ItemAppraiser {
     private static final Random RANDOM = new Random();
 
     private static final List<Item> unsellableItems = Arrays.asList(
+            Items.END_ENERGY_FRAGMENT,
             Items.END_ENERGY_SHARD,
-            Items.END_ENERGY_CRYSTAL
+            Items.END_ENERGY_CRYSTAL,
+            Items.COMPACTED_END_ENERGY
         );
 
     private static final List<Block> unsellableBlocks = Arrays.asList(
@@ -25,7 +27,7 @@ public class ItemAppraiser {
     public static boolean itemIsUnsellable(Object obj) {
         // Check if item is "sellable"
         // Unsellable items:
-        //    - End energy shards/crystals
+        //    - End energy fragments/shards/crystals
         //    - Market blocks
         //    - TODO: netherite tools/armor
         //    - TODO: tools/armor players have previously used

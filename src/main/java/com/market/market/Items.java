@@ -25,6 +25,11 @@ public class Items {
             .displayName(Text.translatable("market_components"))
             .build();
 
+    public static final Item END_ENERGY_FRAGMENT = register(
+            new Item(new Item.Settings().maxCount(99)),
+            "end_energy_fragment"
+    );
+
     public static final Item END_ENERGY_SHARD = register(
             new Item(new Item.Settings().maxCount(99)),
             "end_energy_shard"
@@ -56,6 +61,7 @@ public class Items {
         Registry.register(Registries.ITEM_GROUP, MARKET_COMPONENTS_KEY, MARKET_COMPONENTS);
         ItemGroupEvents.modifyEntriesEvent(MARKET_COMPONENTS_KEY)
                 .register((itemGroup) -> {
+                    itemGroup.add(Items.END_ENERGY_FRAGMENT);
                     itemGroup.add(Items.END_ENERGY_SHARD);
                     itemGroup.add(Items.END_ENERGY_CRYSTAL);
                     itemGroup.add(Items.COMPACTED_END_ENERGY);
