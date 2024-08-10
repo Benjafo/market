@@ -14,36 +14,20 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ModItems {
+public class Items {
     public static final Logger LOGGER = LoggerFactory.getLogger("market");
 
     public static final RegistryKey<ItemGroup> MARKET_COMPONENTS_KEY = RegistryKey.of(
             Registries.ITEM_GROUP.getKey(), Identifier.of(Market.MOD_ID, "market_components"));
 
     public static final ItemGroup MARKET_COMPONENTS = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(ModItems.END_ENERGY_CRYSTAL))
-            .displayName(Text.translatable("market_components"))
+            .icon(() -> new ItemStack(Items.GOLD_COIN))
+            .displayName(Text.translatable("itemGroup.market.market_components"))
             .build();
 
-    public static final Item END_ENERGY_FRAGMENT = register(
-            new Item(new Item.Settings().maxCount(99)),
-            "end_energy_fragment"
-    );
+    public static final Item SILVER_COIN = register( new Coin(),"silver_coin" );
 
-    public static final Item END_ENERGY_SHARD = register(
-            new Item(new Item.Settings().maxCount(99)),
-            "end_energy_shard"
-    );
-
-    public static final Item END_ENERGY_CRYSTAL = register(
-            new Item(new Item.Settings().maxCount(99)),
-            "end_energy_crystal"
-    );
-
-    public static final Item COMPACTED_END_ENERGY = register(
-            new Item(new Item.Settings()),
-            "compacted_end_energy"
-    );
+    public static final Item GOLD_COIN = register( new Coin(),"gold_coin" );
 
     public static Item register(Item item, String id) {
         // Create the identifier for the item.
@@ -61,10 +45,8 @@ public class ModItems {
         Registry.register(Registries.ITEM_GROUP, MARKET_COMPONENTS_KEY, MARKET_COMPONENTS);
         ItemGroupEvents.modifyEntriesEvent(MARKET_COMPONENTS_KEY)
                 .register((itemGroup) -> {
-                    itemGroup.add(ModItems.END_ENERGY_FRAGMENT);
-                    itemGroup.add(ModItems.END_ENERGY_SHARD);
-                    itemGroup.add(ModItems.END_ENERGY_CRYSTAL);
-                    itemGroup.add(ModItems.COMPACTED_END_ENERGY);
+                    itemGroup.add(Items.SILVER_COIN);
+                    itemGroup.add(Items.GOLD_COIN);
                 });
 
 

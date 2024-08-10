@@ -1,15 +1,13 @@
 package com.market.market.blocks;
 
-import com.market.market.items.ModItems;
+import com.market.market.items.Items;
 import com.market.market.Market;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,23 +16,8 @@ public class Blocks {
     public static final Logger LOGGER = LoggerFactory.getLogger("market");
 
     public static final Block MARKET_BLOCK = register(
-            new MarketBlock(AbstractBlock.Settings.create()
-                    .sounds(BlockSoundGroup.ANVIL)
-                    .strength(3.0f, 3.0f)
-            ),
+            new MarketBlock(),
             "market_block",
-            true
-    );
-
-    public static final Block DIMENSIONAL_RIFT_GENERATOR = register(
-            new MarketBlock(AbstractBlock.Settings.create()),
-            "dimensional_rift_generator",
-            true
-    );
-
-    public static final Block TEMPORAL_ACCELERATOR = register(
-            new MarketBlock(AbstractBlock.Settings.create()),
-            "temporal_accelerator",
             true
     );
 
@@ -57,10 +40,8 @@ public class Blocks {
         LOGGER.info("Registering blocks...");
 
         // Add items to item groups to show in creative GUI
-        ItemGroupEvents.modifyEntriesEvent(ModItems.MARKET_COMPONENTS_KEY).register((itemGroup -> {
+        ItemGroupEvents.modifyEntriesEvent(Items.MARKET_COMPONENTS_KEY).register((itemGroup -> {
             itemGroup.add(Blocks.MARKET_BLOCK.asItem());
-            itemGroup.add(Blocks.DIMENSIONAL_RIFT_GENERATOR.asItem());
-            itemGroup.add(Blocks.TEMPORAL_ACCELERATOR.asItem());
         }));
     }
 }

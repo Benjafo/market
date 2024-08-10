@@ -1,12 +1,13 @@
 package com.market.market.blocks;
 
 import com.market.market.items.ItemAppraiser;
-import com.market.market.items.ModItems;
+import com.market.market.items.Items;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.hit.BlockHitResult;
@@ -14,8 +15,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class MarketBlock extends Block {
-    public MarketBlock(AbstractBlock.Settings settings) {
-        super(settings);
+    public MarketBlock() {
+        super(AbstractBlock.Settings.create()
+                .sounds(BlockSoundGroup.ANVIL)
+                .strength(3.0f, 3.0f)
+        );
     }
 
     private boolean exchangeItem(ItemStack heldItem, PlayerEntity player) {
@@ -26,7 +30,7 @@ public class MarketBlock extends Block {
 
         // Generate the value of the item
         Integer value = ItemAppraiser.calculateValue(heldItem);
-        ItemStack coinStack = new ItemStack(ModItems.END_ENERGY_FRAGMENT, value);
+        ItemStack coinStack = new ItemStack(Items.GOLD_COIN, value);
 
         // Try to insert the coins into the player's inventory
         if (!player.getInventory().insertStack(coinStack)) {

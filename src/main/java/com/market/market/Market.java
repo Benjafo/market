@@ -1,7 +1,7 @@
 package com.market.market;
 
 import com.market.market.blocks.Blocks;
-import com.market.market.items.ModItems;
+import com.market.market.items.Items;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +23,7 @@ public class Market implements ModInitializer {
 		LOGGER.info("Loading Market mod...");
 
 		// Initialize items and blocks
-		ModItems.initialize();
+		Items.initialize();
 		Blocks.initialize();
 	}
 }

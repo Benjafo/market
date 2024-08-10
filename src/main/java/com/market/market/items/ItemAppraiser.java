@@ -43,7 +43,7 @@ public class ItemAppraiser {
     }
 
     public static Integer calculateValue(ItemStack item) {
-        // Simulate a random item
-        return new Random().nextInt(10) + 1;
+        // Calculate and return the value of the item stack's item
+        return ITEM_VALUES.get(item.getItem());
     }
 }
