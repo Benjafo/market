@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "market:penny"
+    },
+    {
+      "item": "market:penny"
+    },
+    {
+      "item": "market:penny"
+    },
+    {
+      "item": "market:penny"
+    },
+    {
+      "item": "market:penny"
+    }
+  ],
+  "result": {
+    "id": "market:nickel",
+    "count": 1
+  },
+  "group": "market_components"
+}
