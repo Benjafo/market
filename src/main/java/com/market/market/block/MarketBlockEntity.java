@@ -16,6 +16,7 @@
 
 package com.market.market.block;
 
+import com.market.market.Market;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -27,14 +28,13 @@ import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.BlockPos;
 
 import net.fabricmc.fabric.api.screenhandler.v1.ExtendedScreenHandlerFactory;
-import com.market.market.ScreenHandlerTest;
-import com.market.market.screen.BoxScreenHandler;
+import com.market.market.screen.MarketScreenHandler;
 
-public class BoxBlockEntity extends LootableContainerBlockEntity implements ExtendedScreenHandlerFactory<BlockPos> {
+public class MarketBlockEntity extends LootableContainerBlockEntity implements ExtendedScreenHandlerFactory<BlockPos> {
 	private DefaultedList<ItemStack> items = DefaultedList.ofSize(size(), ItemStack.EMPTY);
 
-	public BoxBlockEntity(BlockPos blockPos, BlockState blockState) {
-		super(ScreenHandlerTest.BOX_ENTITY, blockPos, blockState);
+	public MarketBlockEntity(BlockPos blockPos, BlockState blockState) {
+		super(Market.MARKET_BLOCK_ENTITY, blockPos, blockState);
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class BoxBlockEntity extends LootableContainerBlockEntity implements Exte
 
 	@Override
 	protected ScreenHandler createScreenHandler(int syncId, PlayerInventory playerInventory) {
-		return new BoxScreenHandler(syncId, playerInventory, this);
+		return new MarketScreenHandler(syncId, playerInventory, this);
 	}
 
 	@Override

@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "market:box"
+          "name": "market:market_block"
         }
       ],
       "conditions": [

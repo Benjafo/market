@@ -1,4 +1,6 @@
 {
-  "block.fabric-screen-handler-api-v1-testmod.box": "Box",
-  "item.fabric-screen-handler-api-v1-testmod.bag": "Bag",
+  "block.market.market_block": "Market Block",
+  "item.market.bag": "Bag",
+  "client.submit.button": "Exchange Item(s)",
+  "client.submit.button.tooltip": "Exchange end city loot for money here."
 }

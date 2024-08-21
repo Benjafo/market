@@ -32,8 +32,8 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class BoxBlock extends BlockWithEntity {
-	public BoxBlock(Settings settings) {
+public class MarketBlock extends BlockWithEntity {
+	public MarketBlock(Settings settings) {
 		super(settings);
 	}
 
@@ -57,7 +57,7 @@ public class BoxBlock extends BlockWithEntity {
 
 	@Override
 	public BlockEntity createBlockEntity(BlockPos blockPos, BlockState blockState) {
-		return new BoxBlockEntity(blockPos, blockState);
+		return new MarketBlockEntity(blockPos, blockState);
 	}
 
 	@Override
