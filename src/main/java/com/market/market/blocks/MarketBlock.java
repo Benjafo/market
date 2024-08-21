@@ -2,10 +2,11 @@ package com.market.market.blocks;
 
 import com.market.market.items.ItemAppraiser;
 import com.market.market.items.Items;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import com.mojang.serialization.MapCodec;
+import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.text.Text;
@@ -14,12 +15,28 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class MarketBlock extends Block {
+public class MarketBlock extends BlockWithEntity {
     public MarketBlock() {
         super(AbstractBlock.Settings.create()
                 .sounds(BlockSoundGroup.ANVIL)
                 .strength(3.0f, 3.0f)
         );
+    }
+
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new MarketBlockEntity(pos, state);
+    }
+
+    @Override
+    protected MapCodec<? extends BlockWithEntity> getCodec() {
+        return null;
+    }
+
+    @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        //With inheriting from BlockWithEntity this defaults to INVISIBLE, so we need to change that!
+        return BlockRenderType.MODEL;
     }
 
     private boolean exchangeItem(ItemStack heldItem, PlayerEntity player) {
@@ -29,27 +46,38 @@ public class MarketBlock extends Block {
         }
 
         // Generate the value of the item
-        Integer value = ItemAppraiser.calculateValue(heldItem);
-        ItemStack coinStack = new ItemStack(Items.GOLD_COIN, value);
+        Double value = Math.round(ItemAppraiser.calculateValue(heldItem) * 100.0) / 100.0;
 
-        // Try to insert the coins into the player's inventory
-        if (!player.getInventory().insertStack(coinStack)) {
-            // Add any leftover coins to a separate item stack
-            ItemStack leftoverStack = coinStack.copy();
+        // Define coin types and their values
+        Item[] coinTypes = {Items.DOLLAR, Items.QUARTER, Items.DIME, Items.NICKEL, Items.PENNY};
+        double[] coinValues = {1.0, 0.25, 0.1, 0.05, 0.01};
 
-            // Move all coins that can't fit in the inventory to the ground
-            player.getInventory().offer(leftoverStack, false);
-            if (!leftoverStack.isEmpty()) {
-                player.dropItem(leftoverStack, false);
+        // Calculate coin counts
+        int[] coinCounts = new int[coinTypes.length];
+        double remainingValue = value;
+
+        for (int i = 0; i < coinTypes.length; i++) {
+            coinCounts[i] = (int) (remainingValue / coinValues[i]);
+            remainingValue -= coinCounts[i] * coinValues[i];
+        }
+
+        // Give coins to player
+        for (int i = 0; i < coinTypes.length; i++) {
+            if (coinCounts[i] > 0) {
+                ItemStack coinStack = new ItemStack(coinTypes[i], coinCounts[i]);
+                if (!player.getInventory().insertStack(coinStack)) {
+                    ItemStack leftoverStack = coinStack.copy();
+                    player.getInventory().offer(leftoverStack, false);
+                    if (!leftoverStack.isEmpty()) {
+                        player.dropItem(leftoverStack, false);
+                    }
+                }
             }
         }
 
-        // Remove exchanged item from player's inventory
+        // Remove exchanged item from player's inventory and display message to player
+        Text message = Text.translatable("market.exchange_message", heldItem.getName(), String.format("%.2f", value));
         heldItem.decrement(1);
-
-        // Display message to player
-        Text message = Text.translatable("market.exchange_message", heldItem.getName(), value,
-                Text.translatable(value == 1 ? "market.exchange_message.singular" : "market.exchange_message.plural"));
         player.sendMessage(message);
 
         return true;

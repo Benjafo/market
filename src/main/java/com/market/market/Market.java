@@ -2,7 +2,9 @@ package com.market.market;
 
 import com.market.market.blocks.Blocks;
 import com.market.market.items.Items;
+import com.market.market.screens.MarketScreenHandler;
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.screen.ScreenHandlerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

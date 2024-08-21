@@ -21,13 +21,15 @@ public class Items {
             Registries.ITEM_GROUP.getKey(), Identifier.of(Market.MOD_ID, "market_components"));
 
     public static final ItemGroup MARKET_COMPONENTS = FabricItemGroup.builder()
-            .icon(() -> new ItemStack(Items.GOLD_COIN))
+            .icon(() -> new ItemStack(Items.DOLLAR))
             .displayName(Text.translatable("itemGroup.market.market_components"))
             .build();
 
-    public static final Item SILVER_COIN = register( new Coin(),"silver_coin" );
-
-    public static final Item GOLD_COIN = register( new Coin(),"gold_coin" );
+    public static final Item DOLLAR = register( new Coin(),"dollar" );
+    public static final Item QUARTER = register( new Coin(),"quarter" );
+    public static final Item DIME = register( new Coin(),"dime" );
+    public static final Item NICKEL = register( new Coin(),"nickel" );
+    public static final Item PENNY = register( new Coin(),"penny" );
 
     public static Item register(Item item, String id) {
         // Create the identifier for the item.
@@ -45,8 +47,11 @@ public class Items {
         Registry.register(Registries.ITEM_GROUP, MARKET_COMPONENTS_KEY, MARKET_COMPONENTS);
         ItemGroupEvents.modifyEntriesEvent(MARKET_COMPONENTS_KEY)
                 .register((itemGroup) -> {
-                    itemGroup.add(Items.SILVER_COIN);
-                    itemGroup.add(Items.GOLD_COIN);
+                    itemGroup.add(Items.DOLLAR);
+                    itemGroup.add(Items.QUARTER);
+                    itemGroup.add(Items.DIME);
+                    itemGroup.add(Items.NICKEL);
+                    itemGroup.add(Items.PENNY);
                 });
 
 

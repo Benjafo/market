@@ -17,6 +17,9 @@
 	"entrypoints": {
 		"main": [
 			"com.market.market.Market"
+		],
+		"client": [
+			"com.market.market.MarketClient"
 		]
 	},
 	"mixins": [

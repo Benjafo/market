@@ -2,12 +2,17 @@ package com.market.market.blocks;
 
 import com.market.market.items.Items;
 import com.market.market.Market;
+import com.market.market.screens.MarketScreenHandler;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.Block;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.resource.featuretoggle.FeatureFlags;
+import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +20,19 @@ import org.slf4j.LoggerFactory;
 public class Blocks {
     public static final Logger LOGGER = LoggerFactory.getLogger("market");
 
-    public static final Block MARKET_BLOCK = register(
-            new MarketBlock(),
-            "market_block",
-            true
+    public static final Block MARKET_BLOCK = Registry.register(
+            Registries.BLOCK, "market_block", new MarketBlock()
     );
+    public static final BlockItem MARKET_BLOCK_ITEM = Registry.register(
+            Registries.ITEM, "market_block", new BlockItem(MARKET_BLOCK, new Item.Settings())
+    );
+    public static final BlockEntityType<MarketBlockEntity> MARKET_BLOCK_ENTITY = FabricBlockEntityTypeBuilder.create(
+            MarketBlockEntity::new, MARKET_BLOCK
+    ).build();
+    public static final ScreenHandlerType<MarketScreenHandler> MARKET_SCREEN_HANDLER = Registry.register(
+            Registries.SCREEN_HANDLER, "new ScreenHandlerType<>(
+            MarketScreenHandler::new, FeatureFlags.VANILLA_FEATURES);
+
 
     public static Block register(Block block, String name, boolean shouldRegisterItem) {
         // Register the block and its item.
