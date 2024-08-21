@@ -1,5 +1,4 @@
 {
-  "market.exchange_message": "Exchanged %s for $%d.",
-  "itemGroup.market.market_components": "Market Components",
-  "block.market.market_block": "Market Block"
+  "block.fabric-screen-handler-api-v1-testmod.box": "Box",
+  "item.fabric-screen-handler-api-v1-testmod.bag": "Bag",
 }

@@ -1,37 +1,20 @@
 {
-	"schemaVersion": 1,
-	"id": "market",
-	"version": "${version}",
-	"name": "Market",
-	"description": "This is an example description! Tell everyone what your mod is about!",
-	"authors": [
-		"Me!"
-	],
-	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
-	},
-	"license": "CC0-1.0",
-	"icon": "assets/market/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"com.market.market.Market"
-		],
-		"client": [
-			"com.market.market.MarketClient"
-		]
-	},
-	"mixins": [
-		"market.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.15.11",
-		"minecraft": "~1.21",
-		"java": ">=21",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
-	}
+  "schemaVersion": 1,
+  "id": "market",
+  "name": "Market Mod",
+  "version": "1.0.0",
+  "environment": "*",
+  "license": "Apache-2.0",
+  "depends": {
+    "fabric-resource-loader-v0": "*",
+    "fabric-screen-handler-api-v1": "*"
+  },
+  "entrypoints": {
+    "main": [
+      "com.market.market.ScreenHandlerTest"
+    ],
+    "client": [
+      "com.market.market.client.ClientScreenHandlerTest"
+    ]
+  }
 }
