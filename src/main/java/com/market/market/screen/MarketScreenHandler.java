@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 
 public class MarketScreenHandler extends Generic3x3ContainerScreenHandler implements IMarketScreenHandler {
 	private final BlockPos pos;
-	private final Inventory inventory;
+	private final PlayerInventory inventory;
 
 	public MarketScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos pos) {
 		super(syncId, playerInventory);
@@ -22,6 +22,10 @@ public class MarketScreenHandler extends Generic3x3ContainerScreenHandler implem
 		super(syncId, playerInventory, inventory);
 		this.pos = BlockPos.ORIGIN;
 		this.inventory = playerInventory;
+	}
+
+	public PlayerInventory getInventory() {
+		return inventory;
 	}
 
 	public int getInventorySize() {

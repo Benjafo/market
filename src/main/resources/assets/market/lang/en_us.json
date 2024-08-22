@@ -1,6 +1,8 @@
 {
-  "block.market.market_block": "Market Block",
-  "item.market.bag": "Bag",
-  "client.submit.button": "Exchange Item(s)",
-  "client.submit.button.tooltip": "Exchange end city loot for money here."
+  "itemGroup.market_components": "Market Components",
+  "block.market_block": "Market Block",
+  "item.bag": "Bag",
+  "client.submit_button": "Exchange Item(s)",
+  "client.submit_button.tooltip": "Exchange end city loot for money here.",
+  "market.exchange_message": "Exchanged %s for $%d. "
 }
