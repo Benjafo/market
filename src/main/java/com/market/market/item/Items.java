@@ -53,7 +53,5 @@ public class Items {
                     itemGroup.add(Items.NICKEL);
                     itemGroup.add(Items.PENNY);
                 });
-
-
     }
 }

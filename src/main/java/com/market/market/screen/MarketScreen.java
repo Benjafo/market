@@ -70,21 +70,12 @@ public class MarketScreen extends HandledScreen<MarketScreenHandler> {
 
     private void submit() {
         MarketScreenHandler handler = this.getScreenHandler();
-        List<Integer> slotsToExchange = new ArrayList<>();
 
         for (int i = 0; i < 9; i++) {
             ItemStack itemStack = handler.getSlot(i).getStack();
             if (!itemStack.isEmpty() && !ItemAppraiser.itemIsUnsellable(itemStack)) {
-                slotsToExchange.add(i);
+                exchangeItem(handler, itemStack);
             }
-        }
-
-        if (!slotsToExchange.isEmpty()) {
-            int[] slotArray = slotsToExchange.stream().mapToInt(Integer::intValue).toArray();
-            MarketExchangePacket packet = new MarketExchangePacket(slotArray);
-            System.out.println("Slot array:" + Arrays.toString(slotArray));
-            System.out.println("Packet slot indices:" + Arrays.toString(packet.getSlotIndices()));
-            MinecraftClient.getInstance().getNetworkHandler().sendPacket(packet);
         }
     }
 
