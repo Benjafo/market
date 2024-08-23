@@ -1,10 +1,13 @@
 package com.market.market.screen;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
-
 import com.market.market.item.ItemAppraiser;
 import com.market.market.item.Items;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.tooltip.Tooltip;
@@ -12,6 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.packet.Packet;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -66,15 +70,21 @@ public class MarketScreen extends HandledScreen<MarketScreenHandler> {
 
     private void submit() {
         MarketScreenHandler handler = this.getScreenHandler();
+        List<Integer> slotsToExchange = new ArrayList<>();
 
-        // Loop through all slots in the table
         for (int i = 0; i < 9; i++) {
             ItemStack itemStack = handler.getSlot(i).getStack();
-            if (!itemStack.isEmpty()) {
-                // Sell the item
-                exchangeItem(handler, itemStack);
-                System.out.println("Slot " + i + ": " + itemStack.getCount() + "x " + itemStack.getItem().getName().getString());
+            if (!itemStack.isEmpty() && !ItemAppraiser.itemIsUnsellable(itemStack)) {
+                slotsToExchange.add(i);
             }
+        }
+
+        if (!slotsToExchange.isEmpty()) {
+            int[] slotArray = slotsToExchange.stream().mapToInt(Integer::intValue).toArray();
+            MarketExchangePacket packet = new MarketExchangePacket(slotArray);
+            System.out.println("Slot array:" + Arrays.toString(slotArray));
+            System.out.println("Packet slot indices:" + Arrays.toString(packet.getSlotIndices()));
+            MinecraftClient.getInstance().getNetworkHandler().sendPacket(packet);
         }
     }
 
@@ -101,14 +111,14 @@ public class MarketScreen extends HandledScreen<MarketScreenHandler> {
         }
 
         // Give coins to player
-//        PlayerInventory inventory = handler.getInventory();
-//        PlayerEntity player = inventory.player;
-//        measureChange(player, inventory, coinTypes, coinCounts);
+        PlayerInventory inventory = handler.getInventory();
+        PlayerEntity player = inventory.player;
+        measureChange(player, inventory, coinTypes, coinCounts);
 
         // Remove exchanged item from player's inventory and display message to player
         Text message = Text.translatable("market.exchange_message", item.getName(), String.format("%.2f", value));
         item.decrement(1);
-//        player.sendMessage(message);
+        player.sendMessage(message);
     }
 
     private static void measureChange(PlayerEntity player, PlayerInventory inventory, Item[] coinTypes, int[] coinCounts) {

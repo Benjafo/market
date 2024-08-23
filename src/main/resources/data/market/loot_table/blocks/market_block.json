@@ -8,11 +8,6 @@
           "type": "minecraft:item",
           "name": "market:market_block"
         }
-      ],
-      "conditions": [
-        {
-          "condition": "minecraft:survives_explosion"
-        }
       ]
     }
   ]
